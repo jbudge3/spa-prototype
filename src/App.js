@@ -14,6 +14,7 @@ function App() {
     <PayrollProvider>
         <Router>
             <NavLinks />
+            <hr />
             <Routes />
         </Router>
     </PayrollProvider>

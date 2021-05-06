@@ -2,19 +2,27 @@ import {
 	useMemo,
 	useState,
 	useEffect,
+	useContext,
 } from 'react';
 import axios from "axios";
 import {
+	Button,
 	Table,
 	Spin,
 } from 'antd';
 
+import {
+	PayrollContext,
+} from "../components";
 import {
 	formatDataForTable,
 } from "../utilities";
 
 export function FunFact() {
 	const [tableData, setTableData] = useState([]);
+	const {
+		handleDecreaseCountClick,
+	} = useContext(PayrollContext);
 
 	useEffect(() => {
 		axios.get('https://www.reddit.com/r/funfact.json?limit=10')
@@ -58,6 +66,9 @@ export function FunFact() {
 	}
 
 	return (
-		<Table columns={ columns } dataSource={ tableData } />
+		<>
+			<Button onClick={ handleDecreaseCountClick }>Decrease Number of Clicks</Button>
+			<Table columns={ columns } dataSource={ tableData } />
+		</>
 	)
 }

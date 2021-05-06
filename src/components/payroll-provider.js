@@ -13,10 +13,16 @@ export function PayrollProvider({ children }) {
 		setCounter(counter + 1);
 	}, [counter]);
 
+	const decreaseCount = useCallback(() => {
+		setCounter(counter - 1);
+	})
+
 	const value = {
 		companyName: `Jake's Company, LLC`,
 		ein: '55-677940',
 		handleIncreaseCountClick: increaseCount,
+		handleDecreaseCountClick: decreaseCount,
+		count: counter,
 	};
 
 	return (
