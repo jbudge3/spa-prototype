@@ -20,15 +20,15 @@ export function NavLinks() {
 			<h1>Company Name: { companyName } | EIN: { ein } | Number of Clicks: { count }</h1>
 			<ul>
 				<li>
-					<Link to="/">Home</Link>
+					<Link to="/spa-prototype">Home</Link>
 				</li>
 
 				<li>
-					<Link to="/today-i-learned">Today I Learned</Link>
+					<Link to="/spa-prototype/today-i-learned">Today I Learned</Link>
 				</li>
 
 				<li>
-					<Link to="/fun-fact">Fun Fact</Link>
+					<Link to="/spa-prototype/fun-fact">Fun Fact</Link>
 				</li>
 			</ul>
 		</nav>

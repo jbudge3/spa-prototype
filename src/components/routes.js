@@ -11,15 +11,15 @@ import {
 export function Routes() {
 	return (
 		<Switch>
-			<Route path="/today-i-learned">
+			<Route path="/spa-prototype/today-i-learned">
 				<TodayILearned />
 			</Route>
 
-			<Route path="/fun-fact">
+			<Route path="/spa-prototype/fun-fact">
 				<FunFact />
 			</Route>
 
-			<Route path="/">
+			<Route path="/spa-prototype">
 				<h1>This is the home screen</h1>
 			</Route>
 		</Switch>
