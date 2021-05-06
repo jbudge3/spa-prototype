@@ -3,12 +3,14 @@ import {
 	useState,
 	useEffect,
 	useContext,
+	useCallback,
 } from 'react';
 import axios from "axios";
 import {
 	Button,
 	Table,
 	Spin,
+	Modal,
 } from 'antd';
 
 import {
@@ -20,7 +22,9 @@ import {
 
 export function TodayILearned() {
 	const [tableData, setTableData] = useState([]);
+	const [showModal, setShowModal] = useState(false);
 	const {
+		count,
 		handleIncreaseCountClick,
 	} = useContext(PayrollContext);
 
@@ -28,6 +32,9 @@ export function TodayILearned() {
 		axios.get('https://www.reddit.com/r/todayilearned.json?limit=10')
 			.then(response => setTableData(formatDataForTable(response.data.data.children)));
 	}, []);
+
+	const openModal = useCallback(() => setShowModal(true), []);
+	const closeModal = useCallback(() => setShowModal(false), []);
 
 	const columns = useMemo(() => {
 		return [
@@ -67,8 +74,12 @@ export function TodayILearned() {
 
 	return (
 		<>
-			<Button onClick={ handleIncreaseCountClick }>Increase Number of Clicks</Button>
+			<Button onClick={ handleIncreaseCountClick } type="primary">Increase Number of Clicks</Button>
+			<Button onClick={ openModal }>Wanna see the count?</Button>
 			<Table columns={ columns } dataSource={ tableData } />
+			<Modal title="The count is..." visible={ showModal } onOk={ closeModal } onCancel={ closeModal }>
+				<h3>Wow! The count is { count }!</h3>
+			</Modal>
 		</>
 	)
 }

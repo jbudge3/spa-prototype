@@ -1,11 +1,13 @@
 import {
 	useMemo,
 	useState,
+	useCallback,
 	useEffect,
 	useContext,
 } from 'react';
 import axios from "axios";
 import {
+	Modal,
 	Button,
 	Table,
 	Spin,
@@ -20,7 +22,9 @@ import {
 
 export function FunFact() {
 	const [tableData, setTableData] = useState([]);
+	const [showModal, setShowModal] = useState(false);
 	const {
+		count,
 		handleDecreaseCountClick,
 	} = useContext(PayrollContext);
 
@@ -28,6 +32,9 @@ export function FunFact() {
 		axios.get('https://www.reddit.com/r/funfact.json?limit=10')
 			.then(response => setTableData(formatDataForTable(response.data.data.children)));
 	}, []);
+
+	const openModal = useCallback(() => setShowModal(true), []);
+	const closeModal = useCallback(() => setShowModal(false), []);
 
 	const columns = useMemo(() => {
 		return [
@@ -67,8 +74,12 @@ export function FunFact() {
 
 	return (
 		<>
-			<Button onClick={ handleDecreaseCountClick }>Decrease Number of Clicks</Button>
+			<Button onClick={ handleDecreaseCountClick } type="primary">Decrease Number of Clicks</Button>
+			<Button onClick={ openModal }>Wanna see the count?</Button>
 			<Table columns={ columns } dataSource={ tableData } />
+			<Modal title="The count is..." visible={ showModal } onOk={ closeModal } onCancel={ closeModal }>
+				<h3>Wow! The count is { count }!</h3>
+			</Modal>
 		</>
 	)
 }
